@@ -8,11 +8,11 @@
 
 /* Begin PBXBuildFile section */
 		ACD9911A223332878B045FB8 /* libPods-GDMap.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 69A9E4E288EE720F6C10312D /* libPods-GDMap.a */; };
-		FEA47C811DC3480F00064C08 /* CustomAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = FEA47C781DC3480F00064C08 /* CustomAnnotation.m */; };
-		FEA47C821DC3480F00064C08 /* CustomPinAnnotationView.m in Sources */ = {isa = PBXBuildFile; fileRef = FEA47C7A1DC3480F00064C08 /* CustomPinAnnotationView.m */; };
-		FEA47C831DC3480F00064C08 /* GDMapView.m in Sources */ = {isa = PBXBuildFile; fileRef = FEA47C7C1DC3480F00064C08 /* GDMapView.m */; };
-		FEA47C851DC3480F00064C08 /* SelectCityAndAddressView.m in Sources */ = {isa = PBXBuildFile; fileRef = FEA47C801DC3480F00064C08 /* SelectCityAndAddressView.m */; };
-		FEA47C881DC3484900064C08 /* MapNavigationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = FEA47C871DC3484900064C08 /* MapNavigationManager.m */; };
+		FE994F691DC34AAF00A8B2D5 /* CustomAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = FE994F601DC34AAF00A8B2D5 /* CustomAnnotation.m */; };
+		FE994F6A1DC34AAF00A8B2D5 /* CustomPinAnnotationView.m in Sources */ = {isa = PBXBuildFile; fileRef = FE994F621DC34AAF00A8B2D5 /* CustomPinAnnotationView.m */; };
+		FE994F6B1DC34AAF00A8B2D5 /* GDMapView.m in Sources */ = {isa = PBXBuildFile; fileRef = FE994F641DC34AAF00A8B2D5 /* GDMapView.m */; };
+		FE994F6C1DC34AAF00A8B2D5 /* MapNavigationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = FE994F661DC34AAF00A8B2D5 /* MapNavigationManager.m */; };
+		FE994F6D1DC34AAF00A8B2D5 /* SelectCityAndAddressView.m in Sources */ = {isa = PBXBuildFile; fileRef = FE994F681DC34AAF00A8B2D5 /* SelectCityAndAddressView.m */; };
 		FEADF0011DC1E48B00F3C4AC /* DestinationTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FEADF0001DC1E48B00F3C4AC /* DestinationTableViewController.m */; };
 		FEB9C8A01DB9A9A4001F17A5 /* RoutePlanViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FEB9C89D1DB9A9A4001F17A5 /* RoutePlanViewController.m */; };
 		FEB9C8A11DB9A9A4001F17A5 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FEB9C89F1DB9A9A4001F17A5 /* ViewController.m */; };
@@ -20,11 +20,6 @@
 		FEB9C8A91DB9AABF001F17A5 /* SelectCityTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FEB9C8A81DB9AABF001F17A5 /* SelectCityTableViewController.m */; };
 		FEB9C8AD1DB9B869001F17A5 /* SortAlphabetically.m in Sources */ = {isa = PBXBuildFile; fileRef = FEB9C8AC1DB9B869001F17A5 /* SortAlphabetically.m */; };
 		FEC312FB1DBDF56D0025D96C /* CommonUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = FEC312FA1DBDF56D0025D96C /* CommonUtility.m */; };
-		FED7FD881DC3404C002ABCAB /* CustomAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = FED7FD7E1DC3404C002ABCAB /* CustomAnnotation.m */; };
-		FED7FD891DC3404C002ABCAB /* CustomPinAnnotationView.m in Sources */ = {isa = PBXBuildFile; fileRef = FED7FD801DC3404C002ABCAB /* CustomPinAnnotationView.m */; };
-		FED7FD8A1DC3404C002ABCAB /* GDMapView.m in Sources */ = {isa = PBXBuildFile; fileRef = FED7FD831DC3404C002ABCAB /* GDMapView.m */; };
-		FED7FD8B1DC3404C002ABCAB /* MapNavigationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = FED7FD851DC3404C002ABCAB /* MapNavigationManager.m */; };
-		FED7FD8C1DC3404C002ABCAB /* SelectCityAndAddressView.m in Sources */ = {isa = PBXBuildFile; fileRef = FED7FD871DC3404C002ABCAB /* SelectCityAndAddressView.m */; };
 		FEF6FD191DB4D272007E259A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = FEF6FD181DB4D272007E259A /* main.m */; };
 		FEF6FD1C1DB4D272007E259A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = FEF6FD1B1DB4D272007E259A /* AppDelegate.m */; };
 		FEF6FD221DB4D272007E259A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FEF6FD201DB4D272007E259A /* Main.storyboard */; };
@@ -36,16 +31,17 @@
 		69A9E4E288EE720F6C10312D /* libPods-GDMap.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-GDMap.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B8594823875F6C98047FB0AC /* Pods-GDMap.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GDMap.debug.xcconfig"; path = "Pods/Target Support Files/Pods-GDMap/Pods-GDMap.debug.xcconfig"; sourceTree = "<group>"; };
 		C6B32F1DC5E1679C1A21C094 /* Pods-GDMap.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GDMap.release.xcconfig"; path = "Pods/Target Support Files/Pods-GDMap/Pods-GDMap.release.xcconfig"; sourceTree = "<group>"; };
-		FEA47C771DC3480F00064C08 /* CustomAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomAnnotation.h; sourceTree = "<group>"; };
-		FEA47C781DC3480F00064C08 /* CustomAnnotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomAnnotation.m; sourceTree = "<group>"; };
-		FEA47C791DC3480F00064C08 /* CustomPinAnnotationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomPinAnnotationView.h; sourceTree = "<group>"; };
-		FEA47C7A1DC3480F00064C08 /* CustomPinAnnotationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomPinAnnotationView.m; sourceTree = "<group>"; };
-		FEA47C7B1DC3480F00064C08 /* GDMapView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GDMapView.h; sourceTree = "<group>"; };
-		FEA47C7C1DC3480F00064C08 /* GDMapView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GDMapView.m; sourceTree = "<group>"; };
-		FEA47C7F1DC3480F00064C08 /* SelectCityAndAddressView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SelectCityAndAddressView.h; sourceTree = "<group>"; };
-		FEA47C801DC3480F00064C08 /* SelectCityAndAddressView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SelectCityAndAddressView.m; sourceTree = "<group>"; };
-		FEA47C861DC3484900064C08 /* MapNavigationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapNavigationManager.h; sourceTree = "<group>"; };
-		FEA47C871DC3484900064C08 /* MapNavigationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MapNavigationManager.m; sourceTree = "<group>"; };
+		FE994F5D1DC34AAF00A8B2D5 /* GDMapPCH.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GDMapPCH.pch; sourceTree = "<group>"; };
+		FE994F5F1DC34AAF00A8B2D5 /* CustomAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomAnnotation.h; sourceTree = "<group>"; };
+		FE994F601DC34AAF00A8B2D5 /* CustomAnnotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomAnnotation.m; sourceTree = "<group>"; };
+		FE994F611DC34AAF00A8B2D5 /* CustomPinAnnotationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomPinAnnotationView.h; sourceTree = "<group>"; };
+		FE994F621DC34AAF00A8B2D5 /* CustomPinAnnotationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomPinAnnotationView.m; sourceTree = "<group>"; };
+		FE994F631DC34AAF00A8B2D5 /* GDMapView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GDMapView.h; sourceTree = "<group>"; };
+		FE994F641DC34AAF00A8B2D5 /* GDMapView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GDMapView.m; sourceTree = "<group>"; };
+		FE994F651DC34AAF00A8B2D5 /* MapNavigationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapNavigationManager.h; sourceTree = "<group>"; };
+		FE994F661DC34AAF00A8B2D5 /* MapNavigationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MapNavigationManager.m; sourceTree = "<group>"; };
+		FE994F671DC34AAF00A8B2D5 /* SelectCityAndAddressView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SelectCityAndAddressView.h; sourceTree = "<group>"; };
+		FE994F681DC34AAF00A8B2D5 /* SelectCityAndAddressView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SelectCityAndAddressView.m; sourceTree = "<group>"; };
 		FEADEFFF1DC1E48B00F3C4AC /* DestinationTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DestinationTableViewController.h; sourceTree = "<group>"; };
 		FEADF0001DC1E48B00F3C4AC /* DestinationTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DestinationTableViewController.m; sourceTree = "<group>"; };
 		FEB9C89C1DB9A9A4001F17A5 /* RoutePlanViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RoutePlanViewController.h; sourceTree = "<group>"; };
@@ -59,12 +55,6 @@
 		FEB9C8AC1DB9B869001F17A5 /* SortAlphabetically.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SortAlphabetically.m; sourceTree = "<group>"; };
 		FEC312F91DBDF56D0025D96C /* CommonUtility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommonUtility.h; sourceTree = "<group>"; };
 		FEC312FA1DBDF56D0025D96C /* CommonUtility.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommonUtility.m; sourceTree = "<group>"; };
-		FED7FD7E1DC3404C002ABCAB /* CustomAnnotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomAnnotation.m; sourceTree = "<group>"; };
-		FED7FD801DC3404C002ABCAB /* CustomPinAnnotationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomPinAnnotationView.m; sourceTree = "<group>"; };
-		FED7FD831DC3404C002ABCAB /* GDMapView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GDMapView.m; sourceTree = "<group>"; };
-		FED7FD851DC3404C002ABCAB /* MapNavigationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MapNavigationManager.m; sourceTree = "<group>"; };
-		FED7FD871DC3404C002ABCAB /* SelectCityAndAddressView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SelectCityAndAddressView.m; sourceTree = "<group>"; };
-		FED7FDA01DC3452D002ABCAB /* GDMapPCH.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GDMapPCH.pch; sourceTree = "<group>"; };
 		FEF6FD141DB4D272007E259A /* GDMap.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GDMap.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FEF6FD181DB4D272007E259A /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		FEF6FD1A1DB4D272007E259A /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -104,19 +94,19 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
-		FEA47C761DC3480F00064C08 /* MapLocation */ = {
+		FE994F5E1DC34AAF00A8B2D5 /* MapLocation */ = {
 			isa = PBXGroup;
 			children = (
-				FEA47C771DC3480F00064C08 /* CustomAnnotation.h */,
-				FEA47C781DC3480F00064C08 /* CustomAnnotation.m */,
-				FEA47C791DC3480F00064C08 /* CustomPinAnnotationView.h */,
-				FEA47C7A1DC3480F00064C08 /* CustomPinAnnotationView.m */,
-				FEA47C7B1DC3480F00064C08 /* GDMapView.h */,
-				FEA47C7C1DC3480F00064C08 /* GDMapView.m */,
-				FEA47C7F1DC3480F00064C08 /* SelectCityAndAddressView.h */,
-				FEA47C801DC3480F00064C08 /* SelectCityAndAddressView.m */,
-				FEA47C861DC3484900064C08 /* MapNavigationManager.h */,
-				FEA47C871DC3484900064C08 /* MapNavigationManager.m */,
+				FE994F5F1DC34AAF00A8B2D5 /* CustomAnnotation.h */,
+				FE994F601DC34AAF00A8B2D5 /* CustomAnnotation.m */,
+				FE994F611DC34AAF00A8B2D5 /* CustomPinAnnotationView.h */,
+				FE994F621DC34AAF00A8B2D5 /* CustomPinAnnotationView.m */,
+				FE994F631DC34AAF00A8B2D5 /* GDMapView.h */,
+				FE994F641DC34AAF00A8B2D5 /* GDMapView.m */,
+				FE994F651DC34AAF00A8B2D5 /* MapNavigationManager.h */,
+				FE994F661DC34AAF00A8B2D5 /* MapNavigationManager.m */,
+				FE994F671DC34AAF00A8B2D5 /* SelectCityAndAddressView.h */,
+				FE994F681DC34AAF00A8B2D5 /* SelectCityAndAddressView.m */,
 			);
 			path = MapLocation;
 			sourceTree = "<group>";
@@ -155,8 +145,8 @@
 		FEE704801DB5F55D00F8379A /* GD */ = {
 			isa = PBXGroup;
 			children = (
-				FED7FDA01DC3452D002ABCAB /* GDMapPCH.pch */,
-				FEA47C761DC3480F00064C08 /* MapLocation */,
+				FE994F5D1DC34AAF00A8B2D5 /* GDMapPCH.pch */,
+				FE994F5E1DC34AAF00A8B2D5 /* MapLocation */,
 				FED7FDAC1DC3452D002ABCAB /* RoutePlan */,
 			);
 			path = GD;
@@ -339,23 +329,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FED7FD881DC3404C002ABCAB /* CustomAnnotation.m in Sources */,
+				FE994F691DC34AAF00A8B2D5 /* CustomAnnotation.m in Sources */,
 				FEB9C8A91DB9AABF001F17A5 /* SelectCityTableViewController.m in Sources */,
-				FED7FD8B1DC3404C002ABCAB /* MapNavigationManager.m in Sources */,
+				FE994F6C1DC34AAF00A8B2D5 /* MapNavigationManager.m in Sources */,
 				FEB9C8A11DB9A9A4001F17A5 /* ViewController.m in Sources */,
 				FEB9C8AD1DB9B869001F17A5 /* SortAlphabetically.m in Sources */,
-				FEA47C811DC3480F00064C08 /* CustomAnnotation.m in Sources */,
-				FEA47C851DC3480F00064C08 /* SelectCityAndAddressView.m in Sources */,
-				FED7FD8C1DC3404C002ABCAB /* SelectCityAndAddressView.m in Sources */,
+				FE994F6D1DC34AAF00A8B2D5 /* SelectCityAndAddressView.m in Sources */,
 				FEC312FB1DBDF56D0025D96C /* CommonUtility.m in Sources */,
 				FEADF0011DC1E48B00F3C4AC /* DestinationTableViewController.m in Sources */,
 				FEF6FD1C1DB4D272007E259A /* AppDelegate.m in Sources */,
-				FEA47C831DC3480F00064C08 /* GDMapView.m in Sources */,
 				FEB9C8A01DB9A9A4001F17A5 /* RoutePlanViewController.m in Sources */,
-				FED7FD891DC3404C002ABCAB /* CustomPinAnnotationView.m in Sources */,
-				FEA47C881DC3484900064C08 /* MapNavigationManager.m in Sources */,
-				FED7FD8A1DC3404C002ABCAB /* GDMapView.m in Sources */,
-				FEA47C821DC3480F00064C08 /* CustomPinAnnotationView.m in Sources */,
+				FE994F6A1DC34AAF00A8B2D5 /* CustomPinAnnotationView.m in Sources */,
+				FE994F6B1DC34AAF00A8B2D5 /* GDMapView.m in Sources */,
 				FEF6FD191DB4D272007E259A /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
