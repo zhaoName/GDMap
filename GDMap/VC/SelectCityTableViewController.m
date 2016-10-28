@@ -29,7 +29,6 @@
     self.navigationItem.titleView = self.searchBar;
     // 处理数据源
     [self handleDataSource];
-    
 }
 
 #pragma mark -- 处理数据源
