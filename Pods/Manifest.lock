@@ -1,0 +1,23 @@
+PODS:
+  - AMap3DMap (4.0.3):
+    - AMapFoundation (~> 1.0)
+  - AMapFoundation (1.1.0)
+  - AMapLocation (2.1.0):
+    - AMapFoundation (~> 1.1)
+  - AMapSearch (4.1.0):
+    - AMapFoundation (~> 1.0)
+
+DEPENDENCIES:
+  - AMap3DMap (~> 4.0.3)
+  - AMapLocation (~> 2.1.0)
+  - AMapSearch (~> 4.1.0)
+
+SPEC CHECKSUMS:
+  AMap3DMap: 8619d67fe7b3bbe45abf74b3434eb9ab20220507
+  AMapFoundation: 15db20567e6512422a086a01b42a88b145bc2500
+  AMapLocation: 343abc9ccd971ad27e459f38b5b082eabebf8792
+  AMapSearch: cb4722480d2d4331a032d43bd1070ed0fa55dac9
+
+PODFILE CHECKSUM: 67854ee7dfe0846d3250836bb17e8bc339341b63
+
+COCOAPODS: 1.0.1
