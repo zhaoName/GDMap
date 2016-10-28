@@ -1,0 +1,24 @@
+//
+//  GDMapPCH.pch
+//  GDMap
+//
+//  Created by zhao on 16/10/18.
+//  Copyright © 2016年 zhaoName. All rights reserved.
+//
+
+#ifndef GDMapPCH_pch
+#define GDMapPCH_pch
+
+
+#import <MAMapKit/MAMapKit.h>
+#import <AMapLocationKit/AMapLocationKit.h>
+#import <AMapFoundationKit/AMapFoundationKit.h>
+#import <AMapSearchKit/AMapSearchKit.h>
+
+#define SCREEN_WIDTH [UIScreen mainScreen].bounds.size.width
+#define SCREEN_HEIGHT [UIScreen mainScreen].bounds.size.height
+
+
+#define AMAP_KEY @"f25029fed3f0b0b17ab7b412a2c3b229"
+
+#endif /* GDMapPCH_pch */
