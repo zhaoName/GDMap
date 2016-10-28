@@ -97,16 +97,16 @@
 		FE994F5E1DC34AAF00A8B2D5 /* MapLocation */ = {
 			isa = PBXGroup;
 			children = (
+				FE994F631DC34AAF00A8B2D5 /* GDMapView.h */,
+				FE994F641DC34AAF00A8B2D5 /* GDMapView.m */,
+				FE994F671DC34AAF00A8B2D5 /* SelectCityAndAddressView.h */,
+				FE994F681DC34AAF00A8B2D5 /* SelectCityAndAddressView.m */,
 				FE994F5F1DC34AAF00A8B2D5 /* CustomAnnotation.h */,
 				FE994F601DC34AAF00A8B2D5 /* CustomAnnotation.m */,
 				FE994F611DC34AAF00A8B2D5 /* CustomPinAnnotationView.h */,
 				FE994F621DC34AAF00A8B2D5 /* CustomPinAnnotationView.m */,
-				FE994F631DC34AAF00A8B2D5 /* GDMapView.h */,
-				FE994F641DC34AAF00A8B2D5 /* GDMapView.m */,
 				FE994F651DC34AAF00A8B2D5 /* MapNavigationManager.h */,
 				FE994F661DC34AAF00A8B2D5 /* MapNavigationManager.m */,
-				FE994F671DC34AAF00A8B2D5 /* SelectCityAndAddressView.h */,
-				FE994F681DC34AAF00A8B2D5 /* SelectCityAndAddressView.m */,
 			);
 			path = MapLocation;
 			sourceTree = "<group>";

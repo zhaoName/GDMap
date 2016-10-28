@@ -27,8 +27,11 @@
         self.backgroundColor = [UIColor clearColor];
         self.layer.cornerRadius = 5.0;
         self.layer.masksToBounds = YES;
+        // 创建选择城市按钮
         [self setupCityButton];
+        // 创建POI搜索
         [self setupPOISearchBar];
+        // 创建分割线
         [self setupSeparateLine];
     }
     return self;
