@@ -2,12 +2,11 @@
 //  MapNavigationManager.h
 //  GDMap
 //
-//  Created by zhao on 16/10/18.
+//  Created by zhao on 16/10/28.
 //  Copyright © 2016年 zhaoName. All rights reserved.
-//  导航
+//
 
 #import <Foundation/Foundation.h>
-
 
 @interface MapNavigationManager : NSObject
 

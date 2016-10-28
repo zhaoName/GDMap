@@ -2,9 +2,9 @@
 //  MapNavigationManager.m
 //  GDMap
 //
-//  Created by zhao on 16/10/18.
+//  Created by zhao on 16/10/28.
 //  Copyright © 2016年 zhaoName. All rights reserved.
-//  导航
+//
 
 #import "MapNavigationManager.h"
 #import <MapKit/MapKit.h>
@@ -170,6 +170,5 @@
     
     return result;
 }
-
 
 @end
