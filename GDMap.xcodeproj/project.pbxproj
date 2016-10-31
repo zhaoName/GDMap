@@ -26,6 +26,7 @@
 		FEF6FD241DB4D272007E259A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FEF6FD231DB4D272007E259A /* Assets.xcassets */; };
 		FEF6FD271DB4D272007E259A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FEF6FD251DB4D272007E259A /* LaunchScreen.storyboard */; };
 		FEF757DE1DC6DE5C0070F0C5 /* RoutePlanView.m in Sources */ = {isa = PBXBuildFile; fileRef = FEF757DD1DC6DE5C0070F0C5 /* RoutePlanView.m */; };
+		FEF757E11DC6F79E0070F0C5 /* RoutePlanPolyline.m in Sources */ = {isa = PBXBuildFile; fileRef = FEF757E01DC6F79E0070F0C5 /* RoutePlanPolyline.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -66,6 +67,8 @@
 		FEF6FD281DB4D273007E259A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		FEF757DC1DC6DE5C0070F0C5 /* RoutePlanView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RoutePlanView.h; sourceTree = "<group>"; };
 		FEF757DD1DC6DE5C0070F0C5 /* RoutePlanView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RoutePlanView.m; sourceTree = "<group>"; };
+		FEF757DF1DC6F79E0070F0C5 /* RoutePlanPolyline.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RoutePlanPolyline.h; sourceTree = "<group>"; };
+		FEF757E01DC6F79E0070F0C5 /* RoutePlanPolyline.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RoutePlanPolyline.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -143,6 +146,8 @@
 			children = (
 				FEF757DC1DC6DE5C0070F0C5 /* RoutePlanView.h */,
 				FEF757DD1DC6DE5C0070F0C5 /* RoutePlanView.m */,
+				FEF757DF1DC6F79E0070F0C5 /* RoutePlanPolyline.h */,
+				FEF757E01DC6F79E0070F0C5 /* RoutePlanPolyline.m */,
 			);
 			path = RoutePlan;
 			sourceTree = "<group>";
@@ -341,6 +346,7 @@
 				FEB9C8AD1DB9B869001F17A5 /* SortAlphabetically.m in Sources */,
 				FE994F6D1DC34AAF00A8B2D5 /* SelectCityAndAddressView.m in Sources */,
 				FEC312FB1DBDF56D0025D96C /* CommonUtility.m in Sources */,
+				FEF757E11DC6F79E0070F0C5 /* RoutePlanPolyline.m in Sources */,
 				FEADF0011DC1E48B00F3C4AC /* DestinationTableViewController.m in Sources */,
 				FEF6FD1C1DB4D272007E259A /* AppDelegate.m in Sources */,
 				FEB9C8A01DB9A9A4001F17A5 /* RoutePlanViewController.m in Sources */,

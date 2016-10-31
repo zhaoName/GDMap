@@ -7,6 +7,7 @@
 //
 
 #import "RoutePlanView.h"
+#import "CommonUtility.h"
 
 @interface RoutePlanView () <UITableViewDelegate, UITableViewDataSource, AMapSearchDelegate, MAMapViewDelegate>
 
@@ -34,6 +35,8 @@
         // 初始化地图
         self.mapView = [[MAMapView alloc] initWithFrame:self.bounds];
         self.mapView.delegate = self;
+        self.mapView.showsUserLocation = YES;
+        self.mapView.userTrackingMode = MAUserTrackingModeFollow;
         // 搜索
         self.searchApi = [[AMapSearchAPI alloc] init];
         self.searchApi.delegate = self;
@@ -41,11 +44,6 @@
         self.isBus = YES;
     }
     return self;
-}
-
-- (void)layoutSubviews
-{
-    [self addSubview:self.tableView];
 }
 
 #pragma mark -- 出行方式
@@ -123,18 +121,24 @@
     {
         self.dataArray = [NSMutableArray arrayWithArray:response.route.transits];
         [self.tableView reloadData];
+        [self.mapView removeFromSuperview];
+        [self addSubview:self.tableView];
     }
     else if(!self.isBus && response.route.paths.count != 0)
     {
-        self.dataArray = [NSMutableArray arrayWithArray:response.route.paths];
-        [self.tableView reloadData];
+        //self.dataArray = [NSMutableArray arrayWithArray:response.route.paths];
+        MAPolyline *polyline = [CommonUtility polylineForCoordinateString:[response.route.paths[0] steps][0].polyline];
+        
+        [self.tableView removeFromSuperview];
+        [self addSubview:self.mapView];
+        [self.mapView addOverlay:polyline];
     }
 }
 
 // 搜索失败回调
 - (void)AMapSearchRequest:(id)request didFailWithError:(NSError *)error
 {
-    NSLog(@"%@", error);
+    NSLog(@"路线规划搜索失败:%@", error);
 }
 
 #pragma mark -- UITableViewDelegate

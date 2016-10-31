@@ -102,8 +102,8 @@
         MKMapItem *toLocation = [[MKMapItem alloc] initWithPlacemark:[[MKPlacemark alloc] initWithCoordinate:destination addressDictionary:nil]];
         //默认驾车
         [MKMapItem openMapsWithItems:@[currentLocation, toLocation]
-                       launchOptions:@{MKLaunchOptionsDirectionsModeKey: MKLaunchOptionsDirectionsModeDriving,
-                                       MKLaunchOptionsShowsTrafficKey: [NSNumber numberWithBool:YES]}];
+                       launchOptions:@{MKLaunchOptionsDirectionsModeKey : MKLaunchOptionsDirectionsModeDriving,
+                                       MKLaunchOptionsShowsTrafficKey : [NSNumber numberWithBool:YES]}];
     }]];
 }
 
