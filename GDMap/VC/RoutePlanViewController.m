@@ -9,16 +9,14 @@
 
 #import "RoutePlanViewController.h"
 #import "DestinationTableViewController.h"
+#import "RoutePlanView.h"
 
-@interface RoutePlanViewController ()<AMapSearchDelegate, UITextFieldDelegate, DestinationTVCDelegate, UITableViewDelegate, UITableViewDataSource>
+@interface RoutePlanViewController ()<UITextFieldDelegate, DestinationTVCDelegate>
 
-@property (nonatomic, strong) AMapSearchAPI *searchApi;
+@property (nonatomic, strong) RoutePlanView *routeView;
 @property (nonatomic, strong) UITextField *startTF; /**< 起点*/
 @property (nonatomic, strong) UITextField *destinationTF; /**< 终点*/
-@property (nonatomic, strong) AMapGeoPoint *desGeoPoint; /**< 终点坐标*/
-@property (nonatomic, strong)  UISegmentedControl *segment;
-@property (nonatomic, strong) UITableView *tableView;
-@property (nonatomic, strong) NSMutableArray *dataArray;
+@property (nonatomic, strong) UISegmentedControl *segment; /**< 选择出行方式*/
 
 @end
 
@@ -28,15 +26,15 @@
     [super viewDidLoad];
     
     self.view.backgroundColor = [UIColor whiteColor];
-    self.searchApi = [[AMapSearchAPI alloc] init];
-    self.searchApi.delegate = self;
     
     // 设置导航栏
     [self setupNavigationBar];
     // 设置起点、终点TextField
     [self setupStartAndDestinationTextField];
     [self setupSeparateLine];
-    [self.view addSubview:self.tableView];
+    [self.view addSubview:self.routeView];
+    self.routeView.startCoordinate = self.startCoordinate;
+    self.routeView.currentCityName = self.currentCityName;
 }
 
 #pragma mark -- 导航栏
@@ -108,21 +106,22 @@
     if(isDes) // 终点
     {
         self.destinationTF.text = tip.name;
-        self.desGeoPoint = tip.location;
+        self.routeView.desGeoPoint = tip.location;
     }
     else // 起点
     {
         self.startTF.text = tip.name;
         self.startCoordinate = CLLocationCoordinate2DMake(tip.location.latitude, tip.location.longitude);
+        self.routeView.startCoordinate = self.startCoordinate;
     }
     
     // 使用默认方式 选择路线规划
-    if(self.startCoordinate.latitude != self.desGeoPoint.latitude && self.startCoordinate.longitude != self.desGeoPoint.longitude)
+    if(self.startCoordinate.latitude != self.routeView.desGeoPoint.latitude && self.startCoordinate.longitude != self.routeView.desGeoPoint.longitude)
     {
-        [self searchRoutePlanBus];
+        self.routeView.isBus = YES;
+        [self.routeView searchRoutePlanBus];
     }
 }
-
 
 #pragma mark -- 选择出行方式
 
@@ -130,13 +129,13 @@
 - (void)selectTripWay:(UISegmentedControl *)segment
 {
     // 起点和终点坐标相同 则给个提示
-    if(self.startCoordinate.latitude == self.desGeoPoint.latitude &&
-       self.startCoordinate.longitude == self.desGeoPoint.longitude)
+    if(self.startCoordinate.latitude == self.routeView.desGeoPoint.latitude &&
+       self.startCoordinate.longitude == self.routeView.desGeoPoint.longitude)
     {
         NSLog(@"终点和起点坐标相同");
         return;
     }
-    if(self.desGeoPoint == nil)
+    if(self.routeView.desGeoPoint == nil)
     {
         NSLog(@"终点坐标为空");
         return;
@@ -144,186 +143,19 @@
     
     if(segment.selectedSegmentIndex == 0)
     {
-        [self searchRoutePlanDrive]; // 驾车
+        self.routeView.isBus = NO;
+        [self.routeView searchRoutePlanDrive]; // 驾车
     }
     else if(segment.selectedSegmentIndex == 1)
     {
-        [self searchRoutePlanBus]; // 公交
+        self.routeView.isBus = YES;
+        [self.routeView searchRoutePlanBus]; // 公交
     }
     else
     {
-        [self searchRoutePlanWalk]; // 步行
+        self.routeView.isBus = NO;
+        [self.routeView searchRoutePlanWalk]; // 步行
     }
-}
-
-/**
- *  公交路径规划查询
- */
-- (void)searchRoutePlanBus
-{
-    AMapTransitRouteSearchRequest *busRoute = [[AMapTransitRouteSearchRequest alloc]init];
-    busRoute.strategy = 0;
-    busRoute.city = self.currentCityName;
-    busRoute.nightflag = YES;
-    busRoute.requireExtension = YES;
-    
-    // 起点
-    busRoute.origin = [AMapGeoPoint locationWithLatitude:self.startCoordinate.latitude longitude:self.startCoordinate.longitude];
-    // 终点
-    busRoute.destination = self.desGeoPoint;
-    
-    [self.searchApi AMapTransitRouteSearch:busRoute];
-}
-
-/**
- *  步行路径规划查询
- */
-- (void)searchRoutePlanWalk
-{
-    AMapWalkingRouteSearchRequest *walkRoute = [[AMapWalkingRouteSearchRequest alloc] init];
-    walkRoute.multipath = 1;
-    
-    // 起点
-    walkRoute.origin = [AMapGeoPoint locationWithLatitude:self.startCoordinate.latitude longitude:self.startCoordinate.longitude];
-    // 终点
-    walkRoute.destination = self.desGeoPoint;
-    [self.searchApi AMapWalkingRouteSearch:walkRoute];
-}
-
-/**
- *  驾车路径规划查
- */
-- (void)searchRoutePlanDrive
-{
-    AMapDrivingRouteSearchRequest *driveRoute = [[AMapDrivingRouteSearchRequest alloc] init];
-    driveRoute.strategy = 5;
-    driveRoute.requireExtension = YES;
-    
-    // 起点
-    driveRoute.origin = [AMapGeoPoint locationWithLatitude:self.startCoordinate.latitude longitude:self.startCoordinate.longitude];
-    // 终点
-    driveRoute.destination = self.desGeoPoint;
-    [self.searchApi AMapDrivingRouteSearch:driveRoute];
-}
-
-#pragma mark -- AMapSearchDelegate
-
-// 路径规划查询回调
-- (void)onRouteSearchDone:(AMapRouteSearchBaseRequest *)request response:(AMapRouteSearchResponse *)response
-{
-    if(response == nil) return;
-    
-    if(self.segment.selectedSegmentIndex == 1 && response.route.transits.count != 0)
-    {
-        self.dataArray = [NSMutableArray arrayWithArray:response.route.transits];
-        [self.tableView reloadData];
-    }
-    else if(self.segment.selectedSegmentIndex != 1 && response.route.paths.count != 0)
-    {
-        self.dataArray = [NSMutableArray arrayWithArray:response.route.paths];
-        [self.tableView reloadData];
-    }
-}
-
-#pragma mark -- UITableViewDelegate 
-
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
-{
-    return 1;
-}
-
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{
-    return self.dataArray.count;
-}
-
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    return 60;
-}
-
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell"];
-    if(cell == nil)
-    {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"Cell"];
-    }
-    
-    if(self.segment.selectedSegmentIndex == 1)
-    {
-        cell.textLabel.text = [self getBusRoute:self.dataArray[indexPath.row]];
-        cell.detailTextLabel.text = [self getBusRouteDetail:self.dataArray[indexPath.row]];
-    }
-    else
-    {
-       cell.detailTextLabel.text = @"fuck";
-    }
-    
-    return cell;
-}
-
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    
-}
-
-#pragma mark -- 处理公交路线数据
-
-- (NSMutableString *)getBusRoute:(AMapTransit *)transit
-{
-    NSMutableString *busRoute = [NSMutableString string];
-    
-    for(int i=0; i<transit.segments.count; i++)
-    {
-        AMapSegment *segment = transit.segments[i];
-        for(AMapBusLine *busLine in segment.buslines)
-        {
-            NSRange range = [busLine.name rangeOfString:@"("];
-            NSString *string = [busLine.name substringToIndex:range.location];
-            if([segment.buslines indexOfObject:busLine] != segment.buslines.count -1)
-            {
-                
-                [busRoute appendFormat:@"%@/",string];
-            }
-            else
-            {
-                [busRoute appendFormat:@"%@",string];
-            }
-        }
-        if([transit.segments.lastObject buslines].count == 0 && i == transit.segments.count - 2)
-        {
-            break;
-        }
-        if(i != transit.segments.count - 1)
-        {
-            [busRoute appendFormat:@" 转 "];
-        }
-    }
-    return busRoute;
-}
-
-- (NSString *)getBusRouteDetail:(AMapTransit *)transit
-{
-    NSString *time = [NSString stringWithFormat:@"%ld分钟", transit.duration % 60];
-    NSString *cost = [NSString stringWithFormat:@"%.f元", transit.cost];
-    NSString *walkDistance = nil;
-    if(transit.walkingDistance < 1000)
-    {
-        walkDistance = [NSString stringWithFormat:@"步行%lu米", transit.walkingDistance];
-    }
-    else
-    {
-        walkDistance = [NSString stringWithFormat:@"步行%.2f公里", transit.walkingDistance / 1000.0];
-    }
-    
-    return [NSString stringWithFormat:@"%@ %@ %@", time, cost, walkDistance];
-}
-
-// 搜索失败回调
-- (void)AMapSearchRequest:(id)request didFailWithError:(NSError *)error
-{
-    NSLog(@"%@", error);
 }
 
 // 取消键盘
@@ -358,24 +190,13 @@
     return _destinationTF;
 }
 
-- (UITableView *)tableView
+- (RoutePlanView *)routeView
 {
-    if(!_tableView)
+    if(!_routeView)
     {
-        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 125, SCREEN_WIDTH, SCREEN_HEIGHT - 125) style:UITableViewStylePlain];
-        _tableView.delegate = self;
-        _tableView.dataSource = self;
+        _routeView = [RoutePlanView initWithFrame:CGRectMake(0, 125, SCREEN_WIDTH, SCREEN_HEIGHT - 125)];
     }
-    return _tableView;
-}
-
-- (NSMutableArray *)dataArray
-{
-    if(!_dataArray)
-    {
-        _dataArray = [NSMutableArray array];
-    }
-    return _dataArray;
+    return _routeView;
 }
 
 @end

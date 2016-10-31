@@ -25,6 +25,7 @@
 		FEF6FD221DB4D272007E259A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FEF6FD201DB4D272007E259A /* Main.storyboard */; };
 		FEF6FD241DB4D272007E259A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FEF6FD231DB4D272007E259A /* Assets.xcassets */; };
 		FEF6FD271DB4D272007E259A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FEF6FD251DB4D272007E259A /* LaunchScreen.storyboard */; };
+		FEF757DE1DC6DE5C0070F0C5 /* RoutePlanView.m in Sources */ = {isa = PBXBuildFile; fileRef = FEF757DD1DC6DE5C0070F0C5 /* RoutePlanView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -63,6 +64,8 @@
 		FEF6FD231DB4D272007E259A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		FEF6FD261DB4D272007E259A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		FEF6FD281DB4D273007E259A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		FEF757DC1DC6DE5C0070F0C5 /* RoutePlanView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RoutePlanView.h; sourceTree = "<group>"; };
+		FEF757DD1DC6DE5C0070F0C5 /* RoutePlanView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RoutePlanView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -138,6 +141,8 @@
 		FED7FDAC1DC3452D002ABCAB /* RoutePlan */ = {
 			isa = PBXGroup;
 			children = (
+				FEF757DC1DC6DE5C0070F0C5 /* RoutePlanView.h */,
+				FEF757DD1DC6DE5C0070F0C5 /* RoutePlanView.m */,
 			);
 			path = RoutePlan;
 			sourceTree = "<group>";
@@ -342,6 +347,7 @@
 				FE994F6A1DC34AAF00A8B2D5 /* CustomPinAnnotationView.m in Sources */,
 				FE994F6B1DC34AAF00A8B2D5 /* GDMapView.m in Sources */,
 				FEF6FD191DB4D272007E259A /* main.m in Sources */,
+				FEF757DE1DC6DE5C0070F0C5 /* RoutePlanView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

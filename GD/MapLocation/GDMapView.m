@@ -19,7 +19,6 @@
 
 @property (nonatomic, strong) MAMapView *mapView; /**< 高德地图*/
 @property (nonatomic, strong) AMapSearchAPI *searchApi; /**< 搜索API*/
-@property (nonatomic, strong) CustomAnnotation *dragCustonAn;
 @property (nonatomic, strong) CustomAnnotation *lastCustomAn; /**< 上个标注*/
 @property (nonatomic, strong) MAPointAnnotation *lastPointAn; /**< */
 
