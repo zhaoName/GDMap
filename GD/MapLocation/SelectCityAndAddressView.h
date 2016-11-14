@@ -4,7 +4,7 @@
 //
 //  Created by zhao on 16/10/20.
 //  Copyright © 2016年 zhaoName. All rights reserved.
-//
+//  选择当前城市或兴趣点(POI)
 
 #import <UIKit/UIKit.h>
 

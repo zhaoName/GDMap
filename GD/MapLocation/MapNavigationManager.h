@@ -4,7 +4,7 @@
 //
 //  Created by zhao on 16/10/28.
 //  Copyright © 2016年 zhaoName. All rights reserved.
-//
+//  跳转到手机安装的地图APP导航
 
 #import <Foundation/Foundation.h>
 

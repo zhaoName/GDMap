@@ -19,6 +19,8 @@
 
 @property (nonatomic, strong) MAMapView *mapView; /**< 高德地图*/
 @property (nonatomic, strong) AMapSearchAPI *searchApi; /**< 搜索API*/
+
+@property (nonatomic, strong) MAAnnotationView *userLocationAnnotationView; /**<带箭头的自身定位点*/
 @property (nonatomic, strong) CustomAnnotation *lastCustomAn; /**< 上个标注*/
 @property (nonatomic, strong) MAPointAnnotation *lastPointAn; /**< */
 
@@ -91,11 +93,19 @@
     if (userLocation != nil)
     {
         self.userLocation = userLocation;
-        // 第一次定位
-        if(self.isFirstLocation)
+        if(self.isFirstLocation) // 第一次定位
         {
            [self searchReGeocodeWithCoordinate:userLocation.location.coordinate];
         }
+    }
+    // 让定位箭头随着方向旋转
+    if (!updatingLocation && self.userLocationAnnotationView != nil)
+    {
+        [UIView animateWithDuration:0.1 animations:^{
+            
+            double degree = userLocation.heading.trueHeading - self.mapView.rotationDegree;
+            self.userLocationAnnotationView.transform = CGAffineTransformMakeRotation(degree * M_PI / 180.f);
+        }];
     }
 }
 
@@ -104,6 +114,21 @@
 // 根据anntation生成对应的View
 - (MAAnnotationView *)mapView:(MAMapView *)mapView viewForAnnotation:(id<MAAnnotation>)annotation
 {
+    // 自己的位置annotation，结合表示方向的箭头
+    if([annotation isKindOfClass:[MAUserLocation class]])
+    {
+        static NSString *userLocationStyleReuseIndetifier = @"userLocationStyleReuseIndetifier";
+        MAAnnotationView *annotationView = [mapView dequeueReusableAnnotationViewWithIdentifier:userLocationStyleReuseIndetifier];
+        if (annotationView == nil)
+        {
+            annotationView = [[MAPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:userLocationStyleReuseIndetifier];
+        }
+        annotationView.image = [UIImage imageNamed:@"userPosition"];
+        self.userLocationAnnotationView = annotationView;
+        
+        return annotationView;
+    }
+    // 点选或长按出现的定位点annotation
     if ([annotation isKindOfClass:[CustomAnnotation class]])
     {
         CustomPinAnnotationView *customAnView = (CustomPinAnnotationView *)[self.mapView dequeueReusableAnnotationViewWithIdentifier:@"CustomPinAnnotationView"];
@@ -373,7 +398,7 @@
     // 添加标注
     CustomAnnotation *customTipAn = [[CustomAnnotation alloc] initWithAMapTip:tip];
     // 移除上次的标注
-    [self.mapView removeAnnotation:customTipAn];
+    [self.mapView removeAnnotation:self.lastCustomAn];
     [self.mapView addAnnotation:customTipAn];
     // 显示具体信息
     [self.mapView selectAnnotation:customTipAn animated:YES];
