@@ -15,6 +15,7 @@
 @property (nonatomic, strong) MAMapView *mapView;
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) NSMutableArray *dataArray;
+@property (nonatomic, strong) NSMutableArray *multiplePolylineColors;
 
 @end
 
@@ -41,7 +42,7 @@
         self.searchApi = [[AMapSearchAPI alloc] init];
         self.searchApi.delegate = self;
         
-        self.isBus = YES;
+        self.routePlanType = RoutePlanViewTypeBus;
     }
     return self;
 }
@@ -107,6 +108,16 @@
 
 - (MAOverlayRenderer *)mapView:(MAMapView *)mapView rendererForOverlay:(id<MAOverlay>)overlay
 {
+    if ([overlay isKindOfClass:[MAMultiPolyline class]])
+    {
+        MAMultiColoredPolylineRenderer * polylineRenderer = [[MAMultiColoredPolylineRenderer alloc] initWithMultiPolyline:overlay];
+        
+        polylineRenderer.lineWidth = 10;
+        polylineRenderer.strokeColors = [self.multiplePolylineColors copy];
+        polylineRenderer.gradient = YES;
+        
+        return polylineRenderer;
+    }
     return nil;
 }
 
@@ -117,21 +128,30 @@
 {
     if(response == nil) return;
     
-    if(self.isBus && response.route.transits.count != 0)
+    if(self.routePlanType == RoutePlanViewTypeBus && response.route.transits.count != 0)// 公交路线
     {
         self.dataArray = [NSMutableArray arrayWithArray:response.route.transits];
         [self.tableView reloadData];
         [self.mapView removeFromSuperview];
         [self addSubview:self.tableView];
     }
-    else if(!self.isBus && response.route.paths.count != 0)
+    else if(self.routePlanType == RoutePlanViewTypeDrive && response.route.paths.count != 0)// 乘车
     {
-        //self.dataArray = [NSMutableArray arrayWithArray:response.route.paths];
-        MAPolyline *polyline = [CommonUtility polylineForCoordinateString:[response.route.paths[0] steps][0].polyline];
-        
         [self.tableView removeFromSuperview];
         [self addSubview:self.mapView];
-        [self.mapView addOverlay:polyline];
+        // 规划路线
+        RoutePlanPolyline *planPolyline = [[RoutePlanPolyline alloc] routePlanWithPath:response.route.paths.firstObject routePlanType:RoutePlanViewTypeDrive showTraffict:YES startPoint:[AMapGeoPoint locationWithLatitude:self.startCoordinate.latitude longitude:self.startCoordinate.longitude] endPoint:self.desGeoPoint];
+        // 根据路况获得的路线的颜色
+        self.multiplePolylineColors = planPolyline.multiplePolylineColors;
+        [planPolyline addPolylineAndAnnotationToMapView:self.mapView];
+        
+        // 缩放地图使其适应polylines的展示.
+        [self.mapView setVisibleMapRect:[CommonUtility mapRectForOverlays:planPolyline.routePolylines] edgePadding:UIEdgeInsetsMake(20, 20, 20, 20) animated:YES];
+    }
+    else if (self.routePlanType == RoutePlanViewTypeWalk && response.route.paths.count != 0) // 步行
+    {
+        [self.tableView removeFromSuperview];
+        [self addSubview:self.mapView];
     }
 }
 
@@ -166,16 +186,8 @@
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"Cell"];
     }
     
-    if(self.isBus)
-    {
-        cell.textLabel.text = [self getBusRoute:self.dataArray[indexPath.row]];
-        cell.detailTextLabel.text = [self getBusRouteDetail:self.dataArray[indexPath.row]];
-    }
-    else
-    {
-        cell.detailTextLabel.text = @"fuck";
-    }
-    
+    cell.textLabel.text = [self getBusRoute:self.dataArray[indexPath.row]];
+    cell.detailTextLabel.text = [self getBusRouteDetail:self.dataArray[indexPath.row]];
     return cell;
 }
 
@@ -222,7 +234,7 @@
 
 - (NSString *)getBusRouteDetail:(AMapTransit *)transit
 {
-    NSString *time = [NSString stringWithFormat:@"%ld分钟", transit.duration % 60];
+    NSString *time = [NSString stringWithFormat:@"%lu分钟", transit.duration % 60];
     NSString *cost = [NSString stringWithFormat:@"%.f元", transit.cost];
     NSString *walkDistance = nil;
     if(transit.walkingDistance < 1000)
@@ -259,5 +271,13 @@
     return _dataArray;
 }
 
+- (NSMutableArray *)multiplePolylineColors
+{
+    if(!_multiplePolylineColors)
+    {
+        _multiplePolylineColors = [[NSMutableArray alloc] init];
+    }
+    return _multiplePolylineColors;
+}
 
 @end

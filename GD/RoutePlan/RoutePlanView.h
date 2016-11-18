@@ -7,13 +7,15 @@
 //  路径规划
 
 #import <UIKit/UIKit.h>
+#import "RoutePlanPolyline.h"
+
 
 @interface RoutePlanView : UIView
 
 @property (nonatomic, strong) NSString *currentCityName; /**< 当前城市名称*/
 @property (nonatomic, assign) CLLocationCoordinate2D startCoordinate; /**< 用户起点坐标*/
 @property (nonatomic, strong) AMapGeoPoint *desGeoPoint; /**< 终点坐标*/
-@property (nonatomic, assign) BOOL isBus; /**<是否以公交为出行方式*/
+@property (nonatomic, assign) RoutePlanViewType routePlanType; /**<出行方式*/
 
 /**
  *  快速初始化GDMapView类

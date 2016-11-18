@@ -74,6 +74,7 @@
             
             CLLocationCoordinate2D baiduDestination = [self gcj02CoordianteToBD09:destination];
             NSString *baiduParameter = @"baidumap://map/direction?origin=latlng:%f,%f|name:我的位置&destination=latlng:%f,%f|name:终点&mode=driving";
+            
             NSString *urlString = [[NSString stringWithFormat:baiduParameter,
                                     self.userLocation.location.coordinate.latitude,
                                     self.userLocation.location.coordinate.longitude,

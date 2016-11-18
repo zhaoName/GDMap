@@ -31,6 +31,7 @@
     [self setupNavigationBar];
     // 设置起点、终点TextField
     [self setupStartAndDestinationTextField];
+    // 创建分隔线
     [self setupSeparateLine];
     [self.view addSubview:self.routeView];
     self.routeView.startCoordinate = self.startCoordinate;
@@ -90,6 +91,9 @@
     [self.navigationController pushViewController:destinationTVC animated:YES];
 }
 
+/**
+ *  创建分隔线
+ */
 - (void)setupSeparateLine
 {
     UIView *separateView = [[UIView alloc] initWithFrame:CGRectMake(0, 124, SCREEN_WIDTH, 1)];
@@ -118,8 +122,7 @@
     // 使用默认方式 选择路线规划
     if(self.startCoordinate.latitude != self.routeView.desGeoPoint.latitude && self.startCoordinate.longitude != self.routeView.desGeoPoint.longitude)
     {
-        self.routeView.isBus = YES;
-        [self.routeView searchRoutePlanBus];
+        [self selectTripWay:self.segment];
     }
 }
 
@@ -143,17 +146,17 @@
     
     if(segment.selectedSegmentIndex == 0)
     {
-        self.routeView.isBus = NO;
+        self.routeView.routePlanType = RoutePlanViewTypeDrive;
         [self.routeView searchRoutePlanDrive]; // 驾车
     }
     else if(segment.selectedSegmentIndex == 1)
     {
-        self.routeView.isBus = YES;
+        self.routeView.routePlanType = RoutePlanViewTypeBus;
         [self.routeView searchRoutePlanBus]; // 公交
     }
     else
     {
-        self.routeView.isBus = NO;
+        self.routeView.routePlanType = RoutePlanViewTypeWalk;
         [self.routeView searchRoutePlanWalk]; // 步行
     }
 }
