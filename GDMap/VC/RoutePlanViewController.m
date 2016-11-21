@@ -49,7 +49,7 @@
     UIBarButtonItem *leftItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(touchLeftItem)];
     self.navigationItem.leftBarButtonItem = leftItem;
     
-    self.segment = [[UISegmentedControl alloc] initWithItems:@[@"开车", @"公交车", @"步行"]];
+    self.segment = [[UISegmentedControl alloc] initWithItems:@[@"驾车", @"公交车", @"步行"]];
     self.segment.selectedSegmentIndex = 1;
     [self.segment addTarget:self action:@selector(selectTripWay:) forControlEvents:UIControlEventValueChanged];
     self.navigationItem.titleView = self.segment;
@@ -105,7 +105,7 @@
 #pragma mark -- DestinationTVCDelegate
 
 // 获取手动选择的起点或终点信息
-- (void)sendCoordinate:(AMapTip *)tip isDestination:(BOOL)isDes
+- (void)sendCoordinateWithTip:(AMapTip *)tip isDestination:(BOOL)isDes
 {
     if(isDes) // 终点
     {

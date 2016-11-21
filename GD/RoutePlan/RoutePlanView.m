@@ -8,14 +8,18 @@
 
 #import "RoutePlanView.h"
 #import "CommonUtility.h"
+#import "DashLinePolyline.h"
 
 @interface RoutePlanView () <UITableViewDelegate, UITableViewDataSource, AMapSearchDelegate, MAMapViewDelegate>
 
 @property (nonatomic, strong) AMapSearchAPI *searchApi;
 @property (nonatomic, strong) MAMapView *mapView;
+
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) NSMutableArray *dataArray;
-@property (nonatomic, strong) NSMutableArray *multiplePolylineColors;
+
+@property (nonatomic, strong) RoutePlanPolyline *planPolyline; /**< overlay*/
+@property (nonatomic, strong) NSMutableArray *multiplePolylineColors; /**<overlay的颜色*/
 
 @end
 
@@ -84,7 +88,7 @@
 }
 
 /**
- *  驾车路径规划查
+ *  驾车路径规划查询
  */
 - (void)searchRoutePlanDrive
 {
@@ -108,6 +112,7 @@
 
 - (MAOverlayRenderer *)mapView:(MAMapView *)mapView rendererForOverlay:(id<MAOverlay>)overlay
 {
+    // 路线
     if ([overlay isKindOfClass:[MAMultiPolyline class]])
     {
         MAMultiColoredPolylineRenderer * polylineRenderer = [[MAMultiColoredPolylineRenderer alloc] initWithMultiPolyline:overlay];
@@ -115,8 +120,19 @@
         polylineRenderer.lineWidth = 10;
         polylineRenderer.strokeColors = [self.multiplePolylineColors copy];
         polylineRenderer.gradient = YES;
+        polylineRenderer.lineJoinType = kMALineCapRound;
         
         return polylineRenderer;
+    }
+    // 补充起点和终点对于路径的空隙（虚线）
+    if([overlay isKindOfClass:[DashLinePolyline class]])
+    {
+        MAPolylineRenderer *dashPolylineRenderer = [[MAPolylineRenderer alloc] initWithPolyline:((DashLinePolyline *)overlay).polyline];
+        dashPolylineRenderer.lineDash = YES;
+        dashPolylineRenderer.lineWidth = 8.0;
+        dashPolylineRenderer.strokeColor = [UIColor redColor];
+        
+        return dashPolylineRenderer;
     }
     return nil;
 }
@@ -139,19 +155,26 @@
     {
         [self.tableView removeFromSuperview];
         [self addSubview:self.mapView];
+        [self.planPolyline clearMapView];
+        
         // 规划路线
-        RoutePlanPolyline *planPolyline = [[RoutePlanPolyline alloc] routePlanWithPath:response.route.paths.firstObject routePlanType:RoutePlanViewTypeDrive showTraffict:YES startPoint:[AMapGeoPoint locationWithLatitude:self.startCoordinate.latitude longitude:self.startCoordinate.longitude] endPoint:self.desGeoPoint];
+        RoutePlanPolyline *drivePolyline = [[RoutePlanPolyline alloc] routePlanWithPath:response.route.paths.firstObject routePlanType:RoutePlanViewTypeDrive showTraffict:YES startPoint:[AMapGeoPoint locationWithLatitude:self.startCoordinate.latitude longitude:self.startCoordinate.longitude] endPoint:self.desGeoPoint];
         // 根据路况获得的路线的颜色
-        self.multiplePolylineColors = planPolyline.multiplePolylineColors;
-        [planPolyline addPolylineAndAnnotationToMapView:self.mapView];
+        self.multiplePolylineColors = drivePolyline.multiplePolylineColors;
+        // 将overlay添加到地图上
+        [drivePolyline addPolylineAndAnnotationToMapView:self.mapView];
         
         // 缩放地图使其适应polylines的展示.
-        [self.mapView setVisibleMapRect:[CommonUtility mapRectForOverlays:planPolyline.routePolylines] edgePadding:UIEdgeInsetsMake(20, 20, 20, 20) animated:YES];
+        [self.mapView setVisibleMapRect:[CommonUtility mapRectForOverlays:drivePolyline.routePolylines] edgePadding:UIEdgeInsetsMake(20, 20, 20, 20) animated:YES];
+        self.planPolyline = drivePolyline;
     }
     else if (self.routePlanType == RoutePlanViewTypeWalk && response.route.paths.count != 0) // 步行
     {
         [self.tableView removeFromSuperview];
         [self addSubview:self.mapView];
+        [self.planPolyline clearMapView];
+        
+        
     }
 }
 

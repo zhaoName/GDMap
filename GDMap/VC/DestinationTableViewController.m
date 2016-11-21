@@ -110,9 +110,9 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     AMapTip *tip = self.dataSource[indexPath.row];
-    if([self.delagate respondsToSelector:@selector(sendCoordinate:isDestination:)])
+    if([self.delagate respondsToSelector:@selector(sendCoordinateWithTip:isDestination:)])
     {
-        [self.delagate sendCoordinate:tip isDestination:self.isDestination];
+        [self.delagate sendCoordinateWithTip:tip isDestination:self.isDestination];
     }
     [self.searchBar resignFirstResponder];
     [self.navigationController popViewControllerAnimated:YES];

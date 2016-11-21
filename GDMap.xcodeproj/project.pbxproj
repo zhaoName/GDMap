@@ -20,6 +20,7 @@
 		FEB9C8A91DB9AABF001F17A5 /* SelectCityTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FEB9C8A81DB9AABF001F17A5 /* SelectCityTableViewController.m */; };
 		FEB9C8AD1DB9B869001F17A5 /* SortAlphabetically.m in Sources */ = {isa = PBXBuildFile; fileRef = FEB9C8AC1DB9B869001F17A5 /* SortAlphabetically.m */; };
 		FEC312FB1DBDF56D0025D96C /* CommonUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = FEC312FA1DBDF56D0025D96C /* CommonUtility.m */; };
+		FED22A791DE296A500E03AE2 /* DashLinePolyline.m in Sources */ = {isa = PBXBuildFile; fileRef = FED22A781DE296A500E03AE2 /* DashLinePolyline.m */; };
 		FEF6FD191DB4D272007E259A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = FEF6FD181DB4D272007E259A /* main.m */; };
 		FEF6FD1C1DB4D272007E259A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = FEF6FD1B1DB4D272007E259A /* AppDelegate.m */; };
 		FEF6FD221DB4D272007E259A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FEF6FD201DB4D272007E259A /* Main.storyboard */; };
@@ -57,6 +58,8 @@
 		FEB9C8AC1DB9B869001F17A5 /* SortAlphabetically.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SortAlphabetically.m; sourceTree = "<group>"; };
 		FEC312F91DBDF56D0025D96C /* CommonUtility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommonUtility.h; sourceTree = "<group>"; };
 		FEC312FA1DBDF56D0025D96C /* CommonUtility.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommonUtility.m; sourceTree = "<group>"; };
+		FED22A771DE296A500E03AE2 /* DashLinePolyline.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DashLinePolyline.h; sourceTree = "<group>"; };
+		FED22A781DE296A500E03AE2 /* DashLinePolyline.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DashLinePolyline.m; sourceTree = "<group>"; };
 		FEF6FD141DB4D272007E259A /* GDMap.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GDMap.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FEF6FD181DB4D272007E259A /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		FEF6FD1A1DB4D272007E259A /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -148,6 +151,8 @@
 				FEF757DD1DC6DE5C0070F0C5 /* RoutePlanView.m */,
 				FEF757DF1DC6F79E0070F0C5 /* RoutePlanPolyline.h */,
 				FEF757E01DC6F79E0070F0C5 /* RoutePlanPolyline.m */,
+				FED22A771DE296A500E03AE2 /* DashLinePolyline.h */,
+				FED22A781DE296A500E03AE2 /* DashLinePolyline.m */,
 			);
 			path = RoutePlan;
 			sourceTree = "<group>";
@@ -340,6 +345,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				FE994F691DC34AAF00A8B2D5 /* CustomAnnotation.m in Sources */,
+				FED22A791DE296A500E03AE2 /* DashLinePolyline.m in Sources */,
 				FEB9C8A91DB9AABF001F17A5 /* SelectCityTableViewController.m in Sources */,
 				FE994F6C1DC34AAF00A8B2D5 /* MapNavigationManager.m in Sources */,
 				FEB9C8A11DB9A9A4001F17A5 /* ViewController.m in Sources */,

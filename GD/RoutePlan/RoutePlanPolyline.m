@@ -4,11 +4,15 @@
 //
 //  Created by zhao on 16/10/31.
 //  Copyright © 2016年 zhaoName. All rights reserved.
-//
+//  添加路线和标注
 
 #import "RoutePlanPolyline.h"
+#import "DashLinePolyline.h"
+
 
 @interface RoutePlanPolyline ()
+
+@property (nonatomic, strong) MAMapView *mapView;
 
 @end
 
@@ -21,7 +25,7 @@
 {
     if([super init])
     {
-        if(type == RoutePlanViewTypeDrive && showTraffict)
+        if(type == RoutePlanViewTypeDrive && showTraffict) // 乘车
         {
             NSArray *multipleColor = nil;
             MAPolyline *polyline = [self multipleColorPolylineWithDrivePath:path multipleColor:&multipleColor];
@@ -31,11 +35,13 @@
                 self.multiplePolylineColors = [multipleColor mutableCopy];
             }
         }
-        else
+        else // 步行
         {
             
         }
     }
+    // 补充起点和终点对于路径的空隙
+    [self replenishPolylinesForStartPoint:startPoint endPoint:endPoint];
     return self;
 }
 
@@ -49,12 +55,38 @@
     return self;
 }
 
+#pragma mark --
 
-// 将路线和标注添加到地图上
+// 将overlay和标注添加到地图上
 - (void)addPolylineAndAnnotationToMapView:(MAMapView *)mapView
 {
-    [mapView addAnnotations:self.routePolylines];
-    [mapView addOverlays:self.routePolylines];
+    self.mapView = mapView;
+    
+    if(self.routeAnnotations.count > 0)
+    {
+        [mapView addAnnotations:self.routeAnnotations];
+    }
+    if(self.routePolylines.count > 0 )
+    {
+        [mapView addOverlays:self.routePolylines];
+    }
+}
+
+// 清空地图上的polyline和标注
+- (void)clearMapView
+{
+    if(self.mapView == nil) return;
+    
+    if(self.routePolylines.count > 0)
+    {
+        [self.mapView removeOverlays:self.routePolylines];
+    }
+    if(self.routeAnnotations.count > 0)
+    {
+        [self.mapView removeAnnotations:self.routeAnnotations];
+    }
+    
+    self.mapView = nil;
 }
 
 - (void)setRoutePlanPolylineVisibility:(BOOL)visible
@@ -62,8 +94,9 @@
     
 }
 
-#pragma mark --
+#pragma mark -- 出行方式数据处理
 
+// 驾车
 - (MAPolyline *)multipleColorPolylineWithDrivePath:(AMapPath *)path multipleColor:(NSArray **)multipleColor
 {
     if(path == nil) return nil;
@@ -106,7 +139,7 @@
             else // 需要插入一个点
             {
                 double rate = (coorDistance == 0 ? 0 : ((currentTrafficLength - sumLength) / coorDistance));
-                NSString *extrnPoint = [self calcPointWithStartPoint:[coorArray objectAtIndex:i-1] endPoint:[coorArray objectAtIndex:i] rate:MAX(MIN(rate, 1.0), 0)];
+                NSString *extrnPoint = [self calculatePointWithStartPoint:[coorArray objectAtIndex:i-1] endPoint:[coorArray objectAtIndex:i] rate:MAX(MIN(rate, 1.0), 0)];
                 if (extrnPoint)
                 {
                     [coordinates addObject:extrnPoint];
@@ -142,7 +175,6 @@
             [coordinates addObject:[coorArray objectAtIndex:i]];
             i++;
         }
-        
         [indexes removeLastObject];
         [indexes addObject:[NSNumber numberWithInteger:([coordinates count]-1)]];
     }
@@ -157,7 +189,67 @@
     MAMultiPolyline *polyline = [MAMultiPolyline polylineWithCoordinates:runningCoords count:coordinates.count drawStyleIndexes:indexes];
     free(runningCoords);
     
+    // 颜色
+    if(polylineColors) *multipleColor = [polylineColors mutableCopy];
+    
     return polyline;
+}
+
+#pragma mark -- 补充起点和终点对于路径的空隙
+
+/**
+ *  补充起点和终点对于路径的空隙(虚线)
+ *
+ *  @param start 起点坐标
+ *  @param end   终点坐标
+ */
+- (void)replenishPolylinesForStartPoint:(AMapGeoPoint *)start endPoint:(AMapGeoPoint *)end
+{
+    if(self.routePolylines.count < 1 || start == nil || end == nil) return;
+    
+    DashLinePolyline *startDashLine = nil;
+    DashLinePolyline *endDashLine = nil;
+    
+    // 补充起点
+    CLLocationCoordinate2D startCoordinate1 = CLLocationCoordinate2DMake(start.latitude, start.longitude);
+    CLLocationCoordinate2D endCoordinate1 = startCoordinate1;
+    
+    MAPolyline *polyline1 = self.routePolylines.firstObject;
+    [polyline1 getCoordinates:&endCoordinate1 range:NSMakeRange(0, 1)];
+    startDashLine = [self replenishPolylineWithStart:startCoordinate1 end:endCoordinate1];
+    
+    // 补充终点
+    CLLocationCoordinate2D startCoordinate2;
+    CLLocationCoordinate2D endCoordinate2;
+    
+    MAPolyline *polyline2 = self.routePolylines.lastObject;
+    [polyline2 getCoordinates:&startCoordinate2 range:NSMakeRange(polyline2.pointCount - 1, 1)];
+    endCoordinate2 = CLLocationCoordinate2DMake(end.latitude, end.longitude);
+    endDashLine = [self replenishPolylineWithStart:startCoordinate2 end:endCoordinate2];
+    
+    if(startDashLine) [self.routePolylines addObject:startDashLine];
+    if(endDashLine) [self.routePolylines addObject:endDashLine];
+}
+
+/**
+ *  补充起点或终点对于路径的空隙
+ */
+- (DashLinePolyline *)replenishPolylineWithStart:(CLLocationCoordinate2D)startCoor end:(CLLocationCoordinate2D)endCoor
+{
+    if (!CLLocationCoordinate2DIsValid(startCoor) || !CLLocationCoordinate2DIsValid(endCoor)) return nil;
+    
+    double distance = MAMetersBetweenMapPoints(MAMapPointForCoordinate(startCoor), MAMapPointForCoordinate(endCoor));
+    DashLinePolyline *dashline = nil;
+    // 若起点距离路径的距离较近，则不用添加虚线
+    if(distance >= 10)
+    {
+        CLLocationCoordinate2D points[2];
+        points[0] = startCoor;
+        points[1] = endCoor;
+        MAPolyline *polyline = [MAPolyline polylineWithCoordinates:points count:2];
+        dashline = [DashLinePolyline initWithPolyline:polyline];
+    }
+    return dashline;
 }
 
 #pragma mark -- 私有方法
@@ -168,12 +260,12 @@
 - (UIColor *)colorWithTrafficStatus:(NSString *)status
 {
     if(status == nil) status = @"未知";
+    
     static NSDictionary *colorMapping = nil;
     if (colorMapping == nil)
     {
         colorMapping = @{@"未知":[UIColor greenColor], @"畅通":[UIColor greenColor], @"缓行":[UIColor yellowColor], @"拥堵":[UIColor redColor]};
     }
-    
     return colorMapping[status] ?: [UIColor greenColor];
 }
 
@@ -203,7 +295,7 @@
 }
 
 
-- (NSString *)calcPointWithStartPoint:(NSString *)start endPoint:(NSString *)end rate:(double)rate
+- (NSString *)calculatePointWithStartPoint:(NSString *)start endPoint:(NSString *)end rate:(double)rate
 {
     if (rate > 1.0 || rate < 0) return nil;
     

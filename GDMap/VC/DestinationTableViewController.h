@@ -16,7 +16,7 @@
  *  @param tip   起点或终点信息
  *  @param isDes 起点或终点
  */
-- (void)sendCoordinate:(AMapTip *)tip isDestination:(BOOL)isDes;
+- (void)sendCoordinateWithTip:(AMapTip *)tip isDestination:(BOOL)isDes;
 
 @end
 

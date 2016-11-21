@@ -4,7 +4,7 @@
 //
 //  Created by zhao on 16/10/31.
 //  Copyright © 2016年 zhaoName. All rights reserved.
-//
+//  添加路线和标注
 
 #import <Foundation/Foundation.h>
 
@@ -47,6 +47,11 @@ typedef NS_ENUM(NSUInteger, RoutePlanViewType)
  *  @param mapView 地图
  */
 - (void)addPolylineAndAnnotationToMapView:(MAMapView *)mapView;
+
+/**
+ *  清空地图上的overlay和标注
+ */
+- (void)clearMapView;
 
 - (void)setRoutePlanPolylineVisibility:(BOOL)visible;
 
