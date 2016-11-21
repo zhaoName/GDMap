@@ -13,6 +13,7 @@
 		FE994F6B1DC34AAF00A8B2D5 /* GDMapView.m in Sources */ = {isa = PBXBuildFile; fileRef = FE994F641DC34AAF00A8B2D5 /* GDMapView.m */; };
 		FE994F6C1DC34AAF00A8B2D5 /* MapNavigationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = FE994F661DC34AAF00A8B2D5 /* MapNavigationManager.m */; };
 		FE994F6D1DC34AAF00A8B2D5 /* SelectCityAndAddressView.m in Sources */ = {isa = PBXBuildFile; fileRef = FE994F681DC34AAF00A8B2D5 /* SelectCityAndAddressView.m */; };
+		FE9B44DD1DE2C4910057F765 /* RoutePlanAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = FE9B44DC1DE2C4910057F765 /* RoutePlanAnnotation.m */; };
 		FEADF0011DC1E48B00F3C4AC /* DestinationTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FEADF0001DC1E48B00F3C4AC /* DestinationTableViewController.m */; };
 		FEB9C8A01DB9A9A4001F17A5 /* RoutePlanViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FEB9C89D1DB9A9A4001F17A5 /* RoutePlanViewController.m */; };
 		FEB9C8A11DB9A9A4001F17A5 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FEB9C89F1DB9A9A4001F17A5 /* ViewController.m */; };
@@ -45,6 +46,8 @@
 		FE994F661DC34AAF00A8B2D5 /* MapNavigationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MapNavigationManager.m; sourceTree = "<group>"; };
 		FE994F671DC34AAF00A8B2D5 /* SelectCityAndAddressView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SelectCityAndAddressView.h; sourceTree = "<group>"; };
 		FE994F681DC34AAF00A8B2D5 /* SelectCityAndAddressView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SelectCityAndAddressView.m; sourceTree = "<group>"; };
+		FE9B44DB1DE2C4910057F765 /* RoutePlanAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RoutePlanAnnotation.h; sourceTree = "<group>"; };
+		FE9B44DC1DE2C4910057F765 /* RoutePlanAnnotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RoutePlanAnnotation.m; sourceTree = "<group>"; };
 		FEADEFFF1DC1E48B00F3C4AC /* DestinationTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DestinationTableViewController.h; sourceTree = "<group>"; };
 		FEADF0001DC1E48B00F3C4AC /* DestinationTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DestinationTableViewController.m; sourceTree = "<group>"; };
 		FEB9C89C1DB9A9A4001F17A5 /* RoutePlanViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RoutePlanViewController.h; sourceTree = "<group>"; };
@@ -153,6 +156,8 @@
 				FEF757E01DC6F79E0070F0C5 /* RoutePlanPolyline.m */,
 				FED22A771DE296A500E03AE2 /* DashLinePolyline.h */,
 				FED22A781DE296A500E03AE2 /* DashLinePolyline.m */,
+				FE9B44DB1DE2C4910057F765 /* RoutePlanAnnotation.h */,
+				FE9B44DC1DE2C4910057F765 /* RoutePlanAnnotation.m */,
 			);
 			path = RoutePlan;
 			sourceTree = "<group>";
@@ -359,6 +364,7 @@
 				FE994F6A1DC34AAF00A8B2D5 /* CustomPinAnnotationView.m in Sources */,
 				FE994F6B1DC34AAF00A8B2D5 /* GDMapView.m in Sources */,
 				FEF6FD191DB4D272007E259A /* main.m in Sources */,
+				FE9B44DD1DE2C4910057F765 /* RoutePlanAnnotation.m in Sources */,
 				FEF757DE1DC6DE5C0070F0C5 /* RoutePlanView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -8,7 +8,8 @@
 
 #import "RoutePlanPolyline.h"
 #import "DashLinePolyline.h"
-
+#import "CommonUtility.h"
+#import "RoutePlanAnnotation.h"
 
 @interface RoutePlanPolyline ()
 
@@ -37,7 +38,11 @@
         }
         else // 步行
         {
-            
+            MAPolyline *polyline = [self polylineWithWalkPath:path];
+            if(polyline)
+            {
+                [self.routePolylines addObject:polyline];
+            }
         }
     }
     // 补充起点和终点对于路径的空隙
@@ -55,7 +60,7 @@
     return self;
 }
 
-#pragma mark --
+#pragma mark -- 公有方法
 
 // 将overlay和标注添加到地图上
 - (void)addPolylineAndAnnotationToMapView:(MAMapView *)mapView
@@ -195,6 +200,32 @@
     return polyline;
 }
 
+// 步行
+- (MAPolyline *)polylineWithWalkPath:(AMapPath *)path
+{
+    if(path == nil) return nil;
+    
+    __block MAPolyline *stepPolyline = nil;
+    [path.steps enumerateObjectsUsingBlock:^(AMapStep * _Nonnull step, NSUInteger idx, BOOL * _Nonnull stop) {
+        
+        // 步行路线
+        stepPolyline =  [CommonUtility polylineForCoordinateString:step.polyline];
+        [self.routePolylines addObject:stepPolyline];
+        
+        if(idx > 0)
+        {
+            RoutePlanAnnotation *routeAnnotation = [[RoutePlanAnnotation alloc] init];
+            routeAnnotation.coordinate = MACoordinateForMapPoint(stepPolyline.points[0]);
+            routeAnnotation.title = step.instruction;
+            [self.routeAnnotations addObject:routeAnnotation];
+        }
+    }];
+    return stepPolyline;
+}
+
+// 公交
+
+
 #pragma mark -- 补充起点和终点对于路径的空隙
 
 /**
@@ -294,7 +325,7 @@
     return CLLocationCoordinate2DMake([coorArray[1] doubleValue], [coorArray[0] doubleValue]);
 }
 
-
+//
 - (NSString *)calculatePointWithStartPoint:(NSString *)start endPoint:(NSString *)end rate:(double)rate
 {
     if (rate > 1.0 || rate < 0) return nil;

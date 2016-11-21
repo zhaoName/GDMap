@@ -9,6 +9,7 @@
 #import "RoutePlanView.h"
 #import "CommonUtility.h"
 #import "DashLinePolyline.h"
+#import "RoutePlanAnnotation.h"
 
 @interface RoutePlanView () <UITableViewDelegate, UITableViewDataSource, AMapSearchDelegate, MAMapViewDelegate>
 
@@ -107,13 +108,26 @@
 
 - (MAAnnotationView *)mapView:(MAMapView *)mapView viewForAnnotation:(id<MAAnnotation>)annotation
 {
+    if([annotation isKindOfClass:[RoutePlanAnnotation class]])
+    {
+        static NSString *routePlanIdentifier = @"RoutePlan";
+        MAAnnotationView *poiAnnotationView = (MAAnnotationView *)[self.mapView dequeueReusableAnnotationViewWithIdentifier:routePlanIdentifier];
+        
+        if(poiAnnotationView == nil)
+        {
+            poiAnnotationView = [[MAAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:routePlanIdentifier];
+        }
+        poiAnnotationView.image = [UIImage imageNamed:@"man"];
+        poiAnnotationView.canShowCallout = YES;
+        
+        return poiAnnotationView;
+    }
     return nil;
 }
 
 - (MAOverlayRenderer *)mapView:(MAMapView *)mapView rendererForOverlay:(id<MAOverlay>)overlay
 {
-    // 路线
-    if ([overlay isKindOfClass:[MAMultiPolyline class]])
+    if ([overlay isKindOfClass:[MAMultiPolyline class]])// 路线
     {
         MAMultiColoredPolylineRenderer * polylineRenderer = [[MAMultiColoredPolylineRenderer alloc] initWithMultiPolyline:overlay];
         
@@ -133,6 +147,15 @@
         dashPolylineRenderer.strokeColor = [UIColor redColor];
         
         return dashPolylineRenderer;
+    }
+    if([overlay isKindOfClass:[MAPolyline class]]) // 步行路线
+    {
+        MAPolylineRenderer *walkPolylineRenderer = [[MAPolylineRenderer alloc] initWithPolyline:overlay];
+        
+        walkPolylineRenderer.lineWidth = 8.0;
+        walkPolylineRenderer.strokeColor = [UIColor colorWithRed:47/255.0 green:147/255.0 blue:188/255.0 alpha:1];
+        
+        return walkPolylineRenderer;
     }
     return nil;
 }
@@ -174,7 +197,12 @@
         [self addSubview:self.mapView];
         [self.planPolyline clearMapView];
         
+        RoutePlanPolyline *walkPolyline = [[RoutePlanPolyline alloc] routePlanWithPath:response.route.paths.firstObject routePlanType:RoutePlanViewTypeWalk showTraffict:YES startPoint:[AMapGeoPoint locationWithLatitude:self.startCoordinate.latitude longitude:self.startCoordinate.longitude] endPoint:self.desGeoPoint];
+        [walkPolyline addPolylineAndAnnotationToMapView:self.mapView];
         
+        // 缩放地图使其适应polylines的展示.
+        [self.mapView setVisibleMapRect:[CommonUtility mapRectForOverlays:walkPolyline.routePolylines] edgePadding:UIEdgeInsetsMake(20, 20, 20, 20) animated:YES];
+        self.planPolyline = walkPolyline;
     }
 }
 
