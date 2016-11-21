@@ -22,6 +22,7 @@
 		FEB9C8AD1DB9B869001F17A5 /* SortAlphabetically.m in Sources */ = {isa = PBXBuildFile; fileRef = FEB9C8AC1DB9B869001F17A5 /* SortAlphabetically.m */; };
 		FEC312FB1DBDF56D0025D96C /* CommonUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = FEC312FA1DBDF56D0025D96C /* CommonUtility.m */; };
 		FED22A791DE296A500E03AE2 /* DashLinePolyline.m in Sources */ = {isa = PBXBuildFile; fileRef = FED22A781DE296A500E03AE2 /* DashLinePolyline.m */; };
+		FEEC142B1DE2E6AA00CEA030 /* RoutePlanBusViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FEEC142A1DE2E6AA00CEA030 /* RoutePlanBusViewController.m */; };
 		FEF6FD191DB4D272007E259A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = FEF6FD181DB4D272007E259A /* main.m */; };
 		FEF6FD1C1DB4D272007E259A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = FEF6FD1B1DB4D272007E259A /* AppDelegate.m */; };
 		FEF6FD221DB4D272007E259A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FEF6FD201DB4D272007E259A /* Main.storyboard */; };
@@ -63,6 +64,8 @@
 		FEC312FA1DBDF56D0025D96C /* CommonUtility.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommonUtility.m; sourceTree = "<group>"; };
 		FED22A771DE296A500E03AE2 /* DashLinePolyline.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DashLinePolyline.h; sourceTree = "<group>"; };
 		FED22A781DE296A500E03AE2 /* DashLinePolyline.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DashLinePolyline.m; sourceTree = "<group>"; };
+		FEEC14291DE2E6AA00CEA030 /* RoutePlanBusViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RoutePlanBusViewController.h; sourceTree = "<group>"; };
+		FEEC142A1DE2E6AA00CEA030 /* RoutePlanBusViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RoutePlanBusViewController.m; sourceTree = "<group>"; };
 		FEF6FD141DB4D272007E259A /* GDMap.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GDMap.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FEF6FD181DB4D272007E259A /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		FEF6FD1A1DB4D272007E259A /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -134,6 +137,8 @@
 				FEADF0001DC1E48B00F3C4AC /* DestinationTableViewController.m */,
 				FEB9C8A71DB9AABF001F17A5 /* SelectCityTableViewController.h */,
 				FEB9C8A81DB9AABF001F17A5 /* SelectCityTableViewController.m */,
+				FEEC14291DE2E6AA00CEA030 /* RoutePlanBusViewController.h */,
+				FEEC142A1DE2E6AA00CEA030 /* RoutePlanBusViewController.m */,
 			);
 			path = VC;
 			sourceTree = "<group>";
@@ -357,6 +362,7 @@
 				FEB9C8AD1DB9B869001F17A5 /* SortAlphabetically.m in Sources */,
 				FE994F6D1DC34AAF00A8B2D5 /* SelectCityAndAddressView.m in Sources */,
 				FEC312FB1DBDF56D0025D96C /* CommonUtility.m in Sources */,
+				FEEC142B1DE2E6AA00CEA030 /* RoutePlanBusViewController.m in Sources */,
 				FEF757E11DC6F79E0070F0C5 /* RoutePlanPolyline.m in Sources */,
 				FEADF0011DC1E48B00F3C4AC /* DestinationTableViewController.m in Sources */,
 				FEF6FD1C1DB4D272007E259A /* AppDelegate.m in Sources */,

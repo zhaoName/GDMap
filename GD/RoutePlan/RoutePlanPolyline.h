@@ -53,6 +53,4 @@ typedef NS_ENUM(NSUInteger, RoutePlanViewType)
  */
 - (void)clearMapView;
 
-- (void)setRoutePlanPolylineVisibility:(BOOL)visible;
-
 @end

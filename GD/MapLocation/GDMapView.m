@@ -169,8 +169,7 @@
         }
         else if(control.tag == RightCallOutTag)// 点击气泡右侧view
         {
-            // 界面跳转
-            self.jumpRoutePlanVCBlock();
+            self.jumpRoutePlanVCBlock();// 界面跳转
         }
     }
 }

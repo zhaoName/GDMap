@@ -122,6 +122,25 @@
         
         return poiAnnotationView;
     }
+    if([annotation isKindOfClass:[MAPointAnnotation class]])
+    {
+        MAAnnotationView *startOrEndAnnotation = (MAAnnotationView *)[self.mapView dequeueReusableAnnotationViewWithIdentifier:@"StartOrEnd"];
+        if(startOrEndAnnotation == nil)
+        {
+            startOrEndAnnotation = [[MAAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:@"StartOrEnd"];
+        }
+        
+        startOrEndAnnotation.centerOffset = CGPointMake(0, -10);
+        if([annotation.title isEqualToString:@"起点"])
+        {
+            startOrEndAnnotation.image = [UIImage imageNamed:@"startPoint"];
+        }
+        else if ([annotation.title isEqualToString:@"终点"])
+        {
+            startOrEndAnnotation.image = [UIImage imageNamed:@"endPoint"];
+        }
+        return startOrEndAnnotation;
+    }
     return nil;
 }
 
@@ -244,7 +263,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    
+    self.jumpRoutePlanBusVCBlock(self.dataArray[indexPath.row]);
 }
 
 #pragma mark -- 处理公交路线数据

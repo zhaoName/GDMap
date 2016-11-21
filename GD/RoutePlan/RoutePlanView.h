@@ -16,6 +16,7 @@
 @property (nonatomic, assign) CLLocationCoordinate2D startCoordinate; /**< 用户起点坐标*/
 @property (nonatomic, strong) AMapGeoPoint *desGeoPoint; /**< 终点坐标*/
 @property (nonatomic, assign) RoutePlanViewType routePlanType; /**<出行方式*/
+@property (nonatomic, strong) void(^jumpRoutePlanBusVCBlock)(AMapTransit *);
 
 /**
  *  快速初始化GDMapView类

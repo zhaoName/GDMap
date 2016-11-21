@@ -10,6 +10,7 @@
 #import "RoutePlanViewController.h"
 #import "DestinationTableViewController.h"
 #import "RoutePlanView.h"
+#import "RoutePlanBusViewController.h"
 
 @interface RoutePlanViewController ()<UITextFieldDelegate, DestinationTVCDelegate>
 
@@ -33,9 +34,7 @@
     [self setupStartAndDestinationTextField];
     // 创建分隔线
     [self setupSeparateLine];
-    [self.view addSubview:self.routeView];
-    self.routeView.startCoordinate = self.startCoordinate;
-    self.routeView.currentCityName = self.currentCityName;
+    [self setupRoutePlanView];
 }
 
 #pragma mark -- 导航栏
@@ -87,7 +86,6 @@
         destinationTVC.isDestination = YES;
         [self.destinationTF resignFirstResponder];
     }
-    
     [self.navigationController pushViewController:destinationTVC animated:YES];
 }
 
@@ -100,6 +98,27 @@
     separateView.backgroundColor = [UIColor lightGrayColor];
     
     [self.view addSubview:separateView];
+}
+
+/**
+ *  创建路线规划view
+ */
+- (void)setupRoutePlanView
+{
+    [self.view addSubview:self.routeView];
+    self.routeView.startCoordinate = self.startCoordinate;
+    self.routeView.currentCityName = self.currentCityName;
+    
+    __weak typeof(RoutePlanViewController *) weakSelf = self;
+    self.routeView.jumpRoutePlanBusVCBlock = ^(AMapTransit *transit)
+    {
+        RoutePlanBusViewController *busVC = [[RoutePlanBusViewController alloc] init];
+        
+        busVC.transit = transit;
+        busVC.startGeoPoint = [AMapGeoPoint locationWithLatitude:weakSelf.startCoordinate.latitude longitude:weakSelf.startCoordinate.longitude];
+        busVC.endGeoPoint = weakSelf.routeView.desGeoPoint;
+        [weakSelf.navigationController pushViewController:busVC animated:YES];
+    };
 }
 
 #pragma mark -- DestinationTVCDelegate
@@ -118,7 +137,6 @@
         self.startCoordinate = CLLocationCoordinate2DMake(tip.location.latitude, tip.location.longitude);
         self.routeView.startCoordinate = self.startCoordinate;
     }
-    
     // 使用默认方式 选择路线规划
     if(self.startCoordinate.latitude != self.routeView.desGeoPoint.latitude && self.startCoordinate.longitude != self.routeView.desGeoPoint.longitude)
     {

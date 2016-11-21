@@ -47,6 +47,7 @@
     }
     // 补充起点和终点对于路径的空隙
     [self replenishPolylinesForStartPoint:startPoint endPoint:endPoint];
+    [self addStartAnnotation:startPoint endAnnotation:endPoint];
     return self;
 }
 
@@ -58,6 +59,26 @@
         
     }
     return self;
+}
+
+#pragma mark -- 添加起点和终点标注
+/**
+ *  添加起点和终点的标注
+ */
+- (void)addStartAnnotation:(AMapGeoPoint *)startGeoPoint endAnnotation:(AMapGeoPoint *)desGeoPoint
+{
+    if(!startGeoPoint && !desGeoPoint) return;
+    
+    MAPointAnnotation *startAnnotation = [[MAPointAnnotation alloc] init];
+    startAnnotation.coordinate = CLLocationCoordinate2DMake(startGeoPoint.latitude, startGeoPoint.longitude);
+    startAnnotation.title = @"起点";
+    
+    MAPointAnnotation *endAnnotation = [[MAPointAnnotation alloc] init];
+    endAnnotation.coordinate = CLLocationCoordinate2DMake(desGeoPoint.latitude, desGeoPoint.longitude);
+    endAnnotation.title = @"终点";
+
+    [self.routeAnnotations addObject:startAnnotation];
+    [self.routeAnnotations addObject:endAnnotation];
 }
 
 #pragma mark -- 公有方法
@@ -92,11 +113,6 @@
     }
     
     self.mapView = nil;
-}
-
-- (void)setRoutePlanPolylineVisibility:(BOOL)visible
-{
-    
 }
 
 #pragma mark -- 出行方式数据处理
