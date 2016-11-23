@@ -47,6 +47,7 @@
     }
     // 补充起点和终点对于路径的空隙
     [self replenishPolylinesForStartPoint:startPoint endPoint:endPoint];
+    // 添加起点和终点标注
     [self addStartAnnotation:startPoint endAnnotation:endPoint];
     return self;
 }
@@ -58,6 +59,10 @@
     {
         
     }
+    // 补充起点和终点对于路径的空隙
+    [self replenishPolylinesForStartPoint:startPoint endPoint:endPoint];
+    // 添加起点和终点标注
+    [self addStartAnnotation:startPoint endAnnotation:endPoint];
     return self;
 }
 

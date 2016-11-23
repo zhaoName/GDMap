@@ -9,6 +9,7 @@
 #import "RoutePlanBusViewController.h"
 #import "RoutePlanPolyline.h"
 #import "DashLinePolyline.h"
+#import "CommonUtility.h"
 
 @interface RoutePlanBusViewController ()<MAMapViewDelegate>
 
@@ -33,6 +34,8 @@
     
     RoutePlanPolyline *busPolyline = [[RoutePlanPolyline alloc] routePlanWithTransit:self.transit startPoint:self.startGeoPoint endPoint:self.endGeoPoint];
     [busPolyline addPolylineAndAnnotationToMapView:self.mapView];
+    
+    [self.mapView setVisibleMapRect:[CommonUtility mapRectForOverlays:busPolyline.routePolylines] edgePadding:UIEdgeInsetsMake(20, 20, 20, 20) animated:YES];
 }
 
 #pragma mark -- MAMapViewDelegate

@@ -188,7 +188,8 @@
     
     if(self.routePlanType == RoutePlanViewTypeBus && response.route.transits.count != 0)// 公交路线
     {
-        self.dataArray = [NSMutableArray arrayWithArray:response.route.transits];
+        [self.dataArray removeAllObjects];
+        self.dataArray = [response.route.transits mutableCopy];
         [self.tableView reloadData];
         [self.mapView removeFromSuperview];
         [self addSubview:self.tableView];

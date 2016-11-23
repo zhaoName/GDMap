@@ -75,6 +75,11 @@
     self.selectView.searchBar.delegate = self;
 }
 
+- (void)dealloc
+{
+    [self.selectView removeObserver:self forKeyPath:@"cityBtn.titleLabel.text"];
+}
+
 /**
  *  点击定位按钮
  */
@@ -250,6 +255,7 @@
         self.isFirstLocation = NO;
         // 显示定位到的城市
         [self.selectView.cityBtn setTitle:response.regeocode.addressComponent.city forState:UIControlStateNormal];
+        [self.selectView addObserver:self forKeyPath:@"cityBtn.titleLabel.text" options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:nil];
         return;
     }
     if (response.regeocode != nil && !self.isFirstLocation)
@@ -263,6 +269,13 @@
         [self.mapView selectAnnotation:customAn animated:YES];
         self.lastCustomAn = customAn;
     }
+}
+
+// KVO监测手动选择的城市名，并把地图切换到响应的城市
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context
+{
+    // 地图切换到选择的城市
+    [self searchDistrictWithCityName:change[NSKeyValueChangeNewKey]];
 }
 
 #pragma mark -- 搜索失败回调
@@ -308,15 +321,21 @@
     if(response == nil || response.districts.count == 0) return;
     
     AMapDistrict *district = response.districts[0];
-    MAMapRect sumBounds = MAMapRectZero;
+    [self.mapView setCenterCoordinate:CLLocationCoordinate2DMake(district.center.latitude, district.center.longitude) animated:YES];
+    //MAMapRect sumBounds = MAMapRectZero;
     for (NSString *polylineString in district.polylines)
     {
         // 将字符串坐标转换成CLLocationCoordinate2D
-        MAPolyline *polyline = [CommonUtility polylineForCoordinateString:polylineString];
+        //MAPolyline *polyline = [CommonUtility polylineForCoordinateString:polylineString];
         // 合并两个MAMapRect
-        sumBounds = MAMapRectUnion(sumBounds, polyline.boundingMapRect);
-        [self.mapView setVisibleMapRect:sumBounds animated:YES];
+        //sumBounds = MAMapRectUnion(sumBounds, polyline.boundingMapRect);
+        //[self.mapView setVisibleMapRect:sumBounds edgePadding:UIEdgeInsetsMake(-50, -50, -50, -50) animated:YES];
     }
+}
+
+- (double)metersPerPointForZoomLevel:(CGFloat)zoomLevel
+{
+    return 100.0;
 }
 
 #pragma mark -- POI查询
@@ -406,31 +425,17 @@
 
 #pragma mark -- setter/getter
 
-- (void)setSelectedCity:(NSString *)selectedCity
-{
-    // 两次选择的城市一样
-    if([self.selectedCity isEqualToString:selectedCity]) return;
-    
-    _selectedCity = selectedCity;
-    [self searchDistrictWithCityName:selectedCity];
-}
-
 - (UIButton *)locationBtn
 {
     if(!_locationBtn)
     {
         _locationBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        _locationBtn.frame = CGRectMake(20, self.frame.size.height - 56, 35, 35);
+        _locationBtn.frame = CGRectMake(20, self.frame.size.height - 65, 35, 35);
         _locationBtn.backgroundColor = [UIColor whiteColor];
         [_locationBtn setImage:[UIImage imageNamed:@"gpsStat1"] forState:UIControlStateNormal];
         [_locationBtn addTarget:self action:@selector(touchLocationButton:) forControlEvents:UIControlEventTouchUpInside];
     }
     return _locationBtn;
-}
-
-- (void)dealloc
-{
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 @end

@@ -75,8 +75,6 @@
 {
     // 将选择的城市名称赋值
     [self.selectView.cityBtn setTitle:cityName forState:UIControlStateNormal];
-    // 地图切换到选择的城市
-    self.mapView.selectedCity = cityName;
 }
 
 // 取消第一响应

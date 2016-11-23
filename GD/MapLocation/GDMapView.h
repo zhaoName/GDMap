@@ -12,7 +12,6 @@
 
 @interface GDMapView : UIView
 
-@property (nonatomic, strong) NSString *selectedCity; /**< 手动选择的城市名称*/
 @property (nonatomic, strong) MAUserLocation *userLocation; /**< 用户定位信息(起点)*/
 @property (nonatomic, strong) SelectCityAndAddressView *selectView;
 @property (nonatomic, strong) void(^jumpRoutePlanVCBlock)(void);

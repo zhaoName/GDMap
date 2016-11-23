@@ -144,7 +144,7 @@
 - (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText
 {
     [self.searchArray removeAllObjects];
-    self.searchArray = [[SortAlphabetically shareSortAlphabetically] blurrySearchFromDataArray:self.dataArray propertyName:nil searchString:searchText];
+    self.searchArray = [[SortAlphabetically shareSortAlphabetically] blurrySearchFromDataArray:[[SortAlphabetically shareSortAlphabetically] fetchAllValuesFromSortDict:self.sortDict]  propertyName:nil searchString:searchText];
     
     [self.tableView reloadData];
 }
