@@ -88,6 +88,11 @@
     // 是否显示用户位置
     self.mapView.showsUserLocation = YES;
     [self.mapView setUserTrackingMode:MAUserTrackingModeFollow animated:YES];
+    // 当当前屏幕下可视地图太大，则缩放比例尺
+    if(self.mapView.zoomLevel <= 12)
+    {
+        [self.mapView setZoomLevel:18 atPivot:self.center animated:YES];
+    }
 }
 
 #pragma mark -- MAMapViewDelegate
@@ -100,7 +105,7 @@
         self.userLocation = userLocation;
         if(self.isFirstLocation) // 第一次定位
         {
-           [self searchReGeocodeWithCoordinate:userLocation.location.coordinate];
+            [self searchReGeocodeWithCoordinate:userLocation.location.coordinate];
         }
     }
     // 让定位箭头随着方向旋转
@@ -321,21 +326,21 @@
     if(response == nil || response.districts.count == 0) return;
     
     AMapDistrict *district = response.districts[0];
+    // 当前地图的中心点
     [self.mapView setCenterCoordinate:CLLocationCoordinate2DMake(district.center.latitude, district.center.longitude) animated:YES];
-    //MAMapRect sumBounds = MAMapRectZero;
-    for (NSString *polylineString in district.polylines)
-    {
-        // 将字符串坐标转换成CLLocationCoordinate2D
-        //MAPolyline *polyline = [CommonUtility polylineForCoordinateString:polylineString];
-        // 合并两个MAMapRect
-        //sumBounds = MAMapRectUnion(sumBounds, polyline.boundingMapRect);
-        //[self.mapView setVisibleMapRect:sumBounds edgePadding:UIEdgeInsetsMake(-50, -50, -50, -50) animated:YES];
-    }
-}
-
-- (double)metersPerPointForZoomLevel:(CGFloat)zoomLevel
-{
-    return 100.0;
+    // 修改比例尺
+    [self.mapView setZoomLevel:12 atPivot:self.center animated:YES];
+    
+    /*** 下面是将选择城市的所有地区放在屏幕上**/
+//    MAMapRect sumBounds = MAMapRectZero;
+//    for (NSString *polylineString in district.polylines)
+//    {
+//        // 将字符串坐标转换成CLLocationCoordinate2D
+//        MAPolyline *polyline = [CommonUtility polylineForCoordinateString:polylineString];
+//        // 合并两个MAMapRect
+//        sumBounds = MAMapRectUnion(sumBounds, polyline.boundingMapRect);
+//        [self.mapView setVisibleMapRect:sumBounds edgePadding:UIEdgeInsetsMake(-50, -50, -50, -50) animated:YES];
+//    }
 }
 
 #pragma mark -- POI查询
